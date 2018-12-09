@@ -7,9 +7,11 @@ import java.io.IOException;
 
 public class Utility {
 
-	
-	int parent =700;
-	int fitness = 699;
+	/**
+	 * Truncations
+	 */
+	int parent =1500;
+	int fitness = parent-1;
 	/**
 	 * load a Parent using this
 	 * @param file
@@ -28,12 +30,14 @@ public class Utility {
 	}
 	
 	public Chromosome loadParent(String file) throws IOException {
-		int [][] list = new int [parent][3];
+		int j =50; //start Location
+		int [][] list = new int [parent-j][3];
 		BufferedReader br = new BufferedReader(new FileReader(file));
 		    String line;
 		    int i=0;
-		    while ((line = br.readLine()) != null && i <parent) {
-		    	list[i] = (LinetoIntconverter(line)); 
+		    while ((line = br.readLine()) != null && i< parent ) {
+		    	if (i>=j)
+		    	list[i-j] = (LinetoIntconverter(line));
 		    	//System.out.println(list[i][0]+" "+list[i][1]+" "+list[i][2]+" "+list [i][3]);
 		    i++;
 		    }
@@ -54,12 +58,15 @@ public class Utility {
 	 * @throws IOException
 	 */
 	public int[][] loadTrainedFitness(String file) throws IOException {
-		int [][] list = new int [fitness][3];
+		int j =50; //start Location
+		int [][] list = new int [fitness-j][3];
+
 		BufferedReader br = new BufferedReader(new FileReader(file));
 		    String line;
 		    int i=0;
 		    while ((line = br.readLine()) != null && i <fitness) {
-		    	list[i] = (LinetoIntconverter(line));
+				if (i>=j)
+		    		list[i-j] = (LinetoIntconverter(line));
 		    	i++;
 		    }
 		    br.close();

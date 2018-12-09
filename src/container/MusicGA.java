@@ -80,15 +80,7 @@ public class MusicGA {
 	}
 	static int [][] trainedFitness;
 	
-	public int [] LinetoIntconverter(String s) {
-		String [] temp = s.split(" ");
-		int [] ret = new int[temp.length];
-		for (int i=0; i < temp.length; i++) 
-			ret[i] = Integer.parseInt(temp[i]);
-		
-		return ret;
-		}
-	
+
 	
 	Random r = new Random();
 	
@@ -147,7 +139,7 @@ public class MusicGA {
 			for (int i=0; i<maxChildren; i++) {
 				int a = r.nextInt(2);
 				if (a ==0) temp = parent1;
-				Chromosome child = mutator(bitCrossover(parent1, parent2),0.30,temp);
+				Chromosome child = mutator(uniformCrossover(parent1, parent2),0.30,temp);
 				child.setLength();
 				child.setTrainedFitness(trainedFitness);
 				child.calculateFitness();
@@ -195,27 +187,23 @@ public class MusicGA {
 			return runGA(h,CurrentGeneration,end);
 		}
 		
-		public static void printout(String file) {
-			
-		}
+
 		public static void main(String [] arg) throws IOException {
+
+			int parents = 4;
 			MusicGA music = new MusicGA();
 			Utility u = new Utility();
 			trainedFitness = u.loadTrainedFitness("src/container/fitness.txt");
-			Chromosome c1 = u.loadParent("src/container/parent1.txt");
-			Chromosome c2 = u.loadParent("src/container/parent2.txt");
-			c1.setTrainedFitness(trainedFitness);
-			c2.setTrainedFitness(trainedFitness);
-			c1.calculateFitness();
-			c2.calculateFitness();
-			List<Chromosome> c = new ArrayList<Chromosome>();
-			c.add(c1);c.add(c2);
-			System.out.println("being");
-			List<Chromosome> temp = new ArrayList<Chromosome>();
-			for (int i =0; i <50; i++) {
-				Chromosome cr =music.bitCrossover(c1, c2);
-				temp.add(cr);
-			}
+			System.out.println(trainedFitness.length);
+			List<Chromosome> c = new ArrayList<>();
+			for (int i =1; i <parents+1;i++) {
+				Chromosome cl = u.loadParent("src/container/parent".concat(String.valueOf(i)).concat(".txt"));
+					cl.setTrainedFitness(trainedFitness);
+					cl.setLength();
+					cl.calculateFitness();
+					c.add(cl);
+				}
+
 			System.out.println("****");
 			List<Chromosome> res =music.runGAnonRecursive(c, 0, 500);
 			System.out.println(res.size());

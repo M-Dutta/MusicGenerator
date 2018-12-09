@@ -1,6 +1,7 @@
 from mido import MidiFile, MidiTrack, Message
 import re
 
+
 def textToTrack(file,output):
     f = open(file, 'r')
     data = f.read().replace(',','')
@@ -18,6 +19,5 @@ def textToTrack(file,output):
         track.append(Message.from_str(msg))
     mid.tracks.append(track)
     mid.save(output)
-
 
 textToTrack("ga1.txt","saved.mid") #<----Change your text file and saved file name here
