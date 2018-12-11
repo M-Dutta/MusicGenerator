@@ -138,7 +138,7 @@ public class MusicGA {
 			parent2.setLength(); parent2.setTrainedFitness(trainedFitness);parent2.calculateFitness();
 			GAHolder h = new GAHolder();
 			Chromosome temp = parent2;
-			for (int i =0; i <maxChildren;i++) {
+			//for (int i =0; i <maxChildren;i++) {
 				int a = r.nextInt(2);
 				if (a == 0) temp = parent1;
 				Chromosome child = mutator(bitCrossover(parent1, parent2), 0.1, temp);
@@ -148,7 +148,7 @@ public class MusicGA {
 				child.calculateFitness();
 				h.insert(child);
 				//h.insert(child2);
-			}
+			//}
 			return h.getChromosomes();
 		}
 
@@ -161,13 +161,22 @@ public class MusicGA {
 			List<Integer> ct2=new ArrayList<>();
 			GAHolder h = new GAHolder();
 			Random rand = new Random();
-
+/**
 			for (int i=0; i< g.size()-1; i++) {
 				for (int y =i+1 ;y<g.size(); y++) {
 					List<Chromosome> childList = crossover(g.get(i), g.get(y));
 					h.insertList(childList);
 				}
 			}
+ */			for (int i=0; i< maxChildren; i++) {
+
+ 				int k =0 ;int l = 0;
+ 				while (k==l)
+					 k = rand.nextInt(g.size());  l = rand.nextInt(g.size());
+
+				h.insertList( crossover(g.get(k), g.get(l)));
+    			}
+
 			return h.getTopN(4);
 		}
 
@@ -205,8 +214,8 @@ public class MusicGA {
 				}
 
 			System.out.println("****");
-			maxChildren = 2;
-			List<Chromosome> res =music.runGAnonRecursive(c, 0, 100);
+			maxChildren = 20;
+			List<Chromosome> res =music.runGAnonRecursive(c, 0, 200);
 			System.out.println(res.size());
 			u.writeToFile(res.get(0), "ga1.txt");
 			u.printGeneCut(res.get(0).getGene()[0]);
