@@ -168,23 +168,27 @@ public class MusicGA {
 					h.insertList(childList);
 				}
 			}
- */			for (int i=0; i< maxChildren; i++) {
+            */  h.insertList(g);
+                for (int i=0; i< maxChildren; i++) {
 
  				int k =0 ;int l = 0;
  				while (k==l)
 					 k = rand.nextInt(g.size());  l = rand.nextInt(g.size());
-
 				h.insertList( crossover(g.get(k), g.get(l)));
     			}
 
-			return h.getTopN(4);
+			return h.getTopN(30);
 		}
 
 		public List<Chromosome> runGAnonRecursive(List<Chromosome> c, int CurrentGeneration, int end) {
 			for (int i =0; i < end;i++) {
 				List<Chromosome> h = randomShuffle(c);
 				c= h;
+				GAHolder hold = new GAHolder();
+				hold.insertList(c);
+				System.out.println(hold.getBestFitness());
 			}
+
 			return c;
 		}
 		public List<Chromosome> runGA(List<Chromosome> c, int CurrentGeneration, int end) {
@@ -199,23 +203,25 @@ public class MusicGA {
 
 		public static void main(String [] arg) throws IOException {
 
-			int parents = 4;
+			int parents = 30;
 			MusicGA music = new MusicGA();
 			Utility u = new Utility();
 			trainedFitness = u.loadTrainedFitness("src/container/fitness.txt");
 			System.out.println(trainedFitness.length);
 			List<Chromosome> c = new ArrayList<>();
-			for (int i =1; i <parents+1;i++) {
-				Chromosome cl = u.loadParent("src/container/parent".concat(String.valueOf(i)).concat(".txt"));
-					cl.setTrainedFitness(trainedFitness);
-					cl.setLength();
-					cl.calculateFitness();
-					c.add(cl);
-				}
+			for (int i =1; i <parents;i++) {
 
+                if (i != 10 && i !=11 && i!=24 && i!=26) {
+                    Chromosome cl = u.loadParent("src/parents/".concat(String.valueOf(i)).concat(".txt"));
+                    cl.setTrainedFitness(trainedFitness);
+                    cl.setLength();
+                    cl.calculateFitness();
+                    c.add(cl);
+                }
+            }
 			System.out.println("****");
-			maxChildren = 20;
-			List<Chromosome> res =music.runGAnonRecursive(c, 0, 200);
+			maxChildren =30+10 ;
+			List<Chromosome> res =music.runGAnonRecursive(c, 0, 50);
 			System.out.println(res.size());
 			u.writeToFile(res.get(0), "ga1.txt");
 			u.printGeneCut(res.get(0).getGene()[0]);

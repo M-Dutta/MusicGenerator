@@ -35,6 +35,8 @@ public class Chromosome extends Utility {
 			actualFitness += (double) (geneAndTrainedDifference[i][0])*channel +
 					(double) (geneAndTrainedDifference[i][1])*note + (double) (geneAndTrainedDifference[i][2])*velocity+
 					(double) (geneAndTrainedDifference[i][3])*time;
+			if  (geneAndTrainedDifference[i][1]%2!=0)
+				actualFitness +=10;
 			
 		}
 		return (double) actualFitness/length;
