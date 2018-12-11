@@ -18,9 +18,10 @@ public class Chromosome extends Utility {
 
 	public double calculateGeneFitness() {
 		double actualFitness = 0;
-		double note = 0.5;
-		double velocity = 0.25;
-		double time =0.2;
+		double note = 0.6;
+		double velocity = 0.2;
+		double time =0.15;
+		double channel =0.05;
 		int length = trainedFitness.length;
 		int[][] geneFitness = geneDifference(this.gene);
 		if (geneFitness.length!= trainedFitness.length) {
@@ -31,7 +32,7 @@ public class Chromosome extends Utility {
 			}
 		int [][] geneAndTrainedDifference = arrayOfArraySubtraction(geneFitness, trainedFitness);		
 		for ( int i =0; i <length; i++ ) {
-			actualFitness += 
+			actualFitness += (double) (geneAndTrainedDifference[i][0])*channel +
 					(double) (geneAndTrainedDifference[i][1])*note + (double) (geneAndTrainedDifference[i][2])*velocity+
 					(double) (geneAndTrainedDifference[i][3])*time;
 			

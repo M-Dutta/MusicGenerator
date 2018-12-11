@@ -92,7 +92,12 @@ public class Utility {
 		for (int i =100; i < 5;i++)
 		System.out.println(c.gene[i][0]+" "+c.gene[i][1]+" "+c.gene[i][2]+" "+c.gene[i][3]);
 	}
-	
+
+
+	public void printGeneCut(int [] c) {
+
+		System.out.println("GeneCut: " + c[1] + " " + c[2] + " " + c[3] + " " + c[3]);
+	}
 	
 	public void printNestedArray(int [][] gene) {
 		for (int i =0; i < gene.length ; i++) {
