@@ -186,7 +186,6 @@ public class MusicGA {
 				c= h;
 				GAHolder hold = new GAHolder();
 				hold.insertList(c);
-				System.out.println(hold.getBestFitness());
 			}
 
 			return c;
