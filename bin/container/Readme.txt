@@ -70,8 +70,7 @@ we'll only use 20 elements from a. I.e: a = a[0 to 20]
 
 Note that you need to save your text on the same format as:
 note_on channel=0 note=79 velocity=0 time=60
-I'll be working on an easier converter meanwhile that can take [79, 0 , 60] and
-turn it to a midi meanwhile.
+
 
 
 
