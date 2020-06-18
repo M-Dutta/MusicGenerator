@@ -56,7 +56,7 @@ let new music's representation is
 
 for 1st gene:
 out fitness =       [ [3, 8, 480] [0, 50, 60] ]
-it's fitness =      [ [4, 0, 400] [0, 50, 80] ]
+it's fitness =      [ [4, 0, 400] [0, 48, 80] ]
 difference array=   [ [1, 8, 80]  [0,  2, 20] ]
 
 2nd gene:
